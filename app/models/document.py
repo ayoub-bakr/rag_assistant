@@ -1,11 +1,13 @@
-
-from pydantic import BaseModel, Field
+from dataclasses import dataclass, field
 from typing import Any
 
+@dataclass(slots=True)
+class Document:
+    """
+    Represents a document loaded from the data source.
+    """
 
-
-class Document(BaseModel):
-        id: str
-        file_name: str
-        text: str
-        metadata: dict[str, Any] = Field(default_factory=dict)
+    id: str
+    file_name: str
+    text: str
+    metadata: dict[str, Any] = field(default_factory=dict)
