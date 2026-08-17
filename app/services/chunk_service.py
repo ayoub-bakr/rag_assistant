@@ -2,7 +2,7 @@ from langchain_core.documents import Document as LangChainDocument
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.models.document import Document
-from app.models.chunck import Chunk
+from app.models.chunk import Chunk
 
 class ChunkService:
     """
@@ -21,6 +21,7 @@ class ChunkService:
     def split_documents(self, documents: list[Document]) -> list[Chunk]:
 
         chunks = []
+        
 
         for document in documents:
 

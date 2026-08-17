@@ -1,5 +1,6 @@
 from app.services.document_loader import DocumentLoader
 from app.services.chunk_service import ChunkService
+from app.services.embedding_service import EmbeddingService
 
 
 def main():
@@ -18,18 +19,21 @@ def main():
 
     chunks = chunk_service.split_documents(documents)
 
-    print(f"Generated Chunks: {len(chunks)}\n")
+    print(f"Generated Chunks: {len(chunks)}")
 
-    # Print chunks
-    for chunk in chunks:
+    # Generate embeddings
+    embedding_service = EmbeddingService()
+
+    embeddings = embedding_service.embed_chunks(chunks)
+
+    print(f"Generated Embeddings: {len(embeddings)}")
+
+    # Check first embedding
+    if embeddings:
         print("=" * 80)
-        print(f"Chunk ID      : {chunk.id}")
-        print(f"Document ID   : {chunk.document_id}")
-        print(f"Source        : {chunk.metadata.get('source')}")
-        print(f"Length        : {len(chunk.text)}")
-        print("-" * 80)
-        print(chunk.text[:200])   # أول 200 حرف
-        print()
+        print(f"Chunk ID          : {embeddings[0].chunk_id}")
+        print(f"Vector dimension  : {len(embeddings[0].vector)}")
+        print(f"First 5 values    : {embeddings[0].vector[:5]}")
 
 
 if __name__ == "__main__":
